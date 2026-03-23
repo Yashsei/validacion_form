@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <title>Formulario Tec</title>
+</head>
+<body>
+  <div class="principal">
+    <h1 class="tituloMain">Validar Elementos del Formulario</h1>
+    <form action="database.php" method="get" id="formulariounico" class="form">
+      <h2 for="">DATOS ALUMNO:</h2>
+      <input type="text" id="nombre" placeholder="Escribe tu nombre" class="nombre">
+      <br>
+      <input type="text" id="mail" placeholder="Escribe tu mail" class="email">
+      <h2 for="">ACTIVIDADES EXTRAESCOLARES</h2>
+      <input type="checkbox" name="deporte" value="deporte" class="actividades">
+      <span>Deporte (futbol,baseball)</span>
+      <br>
+      <input type="checkbox" name="programacion" value="programacion" class="actividades">
+      <span >Club de Programacion</span>
+      <br>
+      <input type="checkbox" name="sistemas" value="sistemas" class="actividades">
+      <span for="">Capitulo de Sistemas</span>
+      <h2 for="">Dominio del idioma ingles</h2>
+      <input type="radio" id="ingles" name="ingles" value="avanzado" class="idioma">
+      <span>Avanzado</span>
+      <br>
+      <input type="radio" id="ingles" name="ingles" value="intermedio" class="idioma">
+      <span>Intermedio</span>
+      <br>
+      <input type="radio" id="ingles" name="ingles" value="basico" class="idioma">
+      <span>Básico</span>
+      <h2>Unidades</h2>
+      <select name="" id="unidades">
+        <option value="">Selecciona una opción</option>
+        <option value="1">Unidad 1</option>
+        <option value="2">Unidad 2</option>
+        <option value="3">Unidad 3</option>
+        <option value="final">Proyecto Final</option>
+      </select>
+      <br><br>
+      <button type="button" id="btn_enviar" class="btn_enviar">Validar Elementos</button>
+    </form>
+  </div>
+  <script>
+      $(document).ready(function(){
+        $("#btn_enviar").click(function(){
+          let nombre= $("#nombre").val().trim();
+          let email = $("#mail").val().trim();
+          let unidades = $("#unidades").val();
+          let expresionCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          //INPUT nombre
+          if(nombre === ''){
+            alert("No escribiste tu NOMBRE");
+            $("#nombre").focus();
+            return false;
+          }
+          //INPUT email
+          if(email === ''){
+            alert("No escribiste tu email")
+            $("#email").focus();
+            return false;
+          }
+          //FORMATO email
+          if (!expresionCorreo.test(email)){
+            alert("Escribe un email válido");
+            $("#email").focus();
+            return false;
+          }
+          //CHECKBOX como son varios elementos me conviene hacerlo con class en vez de ID
+          if (!$(".actividades").is(":checked")){
+            alert("Debes seleccionar al menos una actividad extraescolar");
+            $(".actividades").first().focus();
+            return false;
+          }
+          //RADIO
+          if (!$(".idioma").is(":checked")){
+            alert("Debes seleccionar al menos un nivel de ingles");
+            $(".idioma"),first().focus();
+            return false;
+          }
+          //SELECT
+          if (unidades === ''){
+            alert("Debes seleccinar una opcion en unidades");
+            $("#unidades").focus();
+            return false;
+          }
+          $("#formulariounico")[0].submit();
+        });
+      });
+  </script>
+</body>
+</html>
